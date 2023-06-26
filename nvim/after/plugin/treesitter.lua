@@ -1,6 +1,11 @@
-require 'nvim-treesitter.install'.compilers = { 'clang' }
+local status, ts = pcall(require, "nvim-treesitter.configs")
+if not status then
+    return
+end
 
-require 'nvim-treesitter.configs'.setup {
+require("nvim-treesitter.install").compilers = { "clang" }
+
+ts.setup({
     -- A list of parser names, or "all"
     ensure_installed = { "vimdoc", "javascript", "typescript", "c", "lua", "rust" },
 
@@ -21,4 +26,4 @@ require 'nvim-treesitter.configs'.setup {
         -- Instead of true it can also be a list of languages
         additional_vim_regex_highlighting = false,
     },
-}
+})

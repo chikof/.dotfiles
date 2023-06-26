@@ -1,4 +1,7 @@
-local lsp = require("lsp-zero")
+local status, lsp = pcall(require, "lsp-zero")
+if not status then
+    return
+end
 
 lsp.preset("recommended")
 
@@ -87,7 +90,11 @@ lsp.configure("tailwindcss", {
     },
 })
 
-local cmp = require("cmp")
+local status, cmp = pcall(require, "cmp")
+if not status then
+    return
+end
+
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
     ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),

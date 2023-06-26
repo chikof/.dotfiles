@@ -1,5 +1,6 @@
 require("chiko.set")
 require("chiko.remap")
+require("chiko.packer")
 
 local augroup = vim.api.nvim_create_augroup
 local ChikoGroup = augroup('Chiko', {})

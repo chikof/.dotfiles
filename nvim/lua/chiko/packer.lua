@@ -3,6 +3,21 @@
 -- Only required if you have packer configured as `opt`
 vim.cmd.packadd("packer.nvim")
 
+function exists(name)
+    if type(name) ~= "string" then
+        return false
+    end
+    return os.rename(name, name) and true or false
+end
+
+if not exists(vim.fn.stdpath("config") .. "/lua/plugins/packer_compiled.lua") then
+    vim.api.nvim_create_autocmd("BufWritePost", {
+        group = vim.api.nvim_create_augroup("PACKER", { clear = true }),
+        pattern = "plugins.lua",
+        command = "source <afile> | PackerCompile",
+    })
+end
+
 return require("packer").startup(function(use)
     -- Packer can manage itself
     use("wbthomason/packer.nvim")
@@ -22,7 +37,26 @@ return require("packer").startup(function(use)
         end,
     })
 
-    use("ruunao/presence.nvim")
+    use("simxnet/presence.nvim")
+
+    use({
+        "numToStr/Comment.nvim",
+        config = function()
+            require("Comment").setup()
+        end,
+    })
+
+    use({
+        "windwp/nvim-autopairs",
+        config = function()
+            require("nvim-autopairs").setup({})
+        end,
+    })
+
+    use({
+        "akinsho/toggleterm.nvim",
+        tag = "*",
+    })
 
     use({
         "folke/trouble.nvim",
@@ -35,6 +69,7 @@ return require("packer").startup(function(use)
             })
         end,
     })
+
     use({
         "nvim-lualine/lualine.nvim",
         requires = { "nvim-tree/nvim-web-devicons", opt = true },
@@ -47,6 +82,7 @@ return require("packer").startup(function(use)
             ts_update()
         end,
     })
+
     use("nvim-treesitter/playground")
     use("theprimeagen/harpoon")
     use("theprimeagen/refactoring.nvim")
@@ -55,6 +91,8 @@ return require("packer").startup(function(use)
     use("wakatime/vim-wakatime")
     use("nvim-treesitter/nvim-treesitter-context")
     use("lewis6991/gitsigns.nvim")
+
+    use("klen/nvim-config-local")
 
     use({
         "VonHeikemen/lsp-zero.nvim",
