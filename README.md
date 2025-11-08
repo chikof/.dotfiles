@@ -1,4 +1,3 @@
-# Dotfiles
+# My Dotfiles
 
-### Configurations
-- [nvim](/nvim) - this configuration was taken from the [init.lua](https://github.com/ThePrimeagen/init.lua) repository.
+I haven't even tested out this config, so idk if it works or not.
