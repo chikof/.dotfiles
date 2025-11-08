@@ -53,7 +53,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              users."${settings.username}" = import ./home.nix {
+              users."${settings.username}" = import ./home.nix // {
                 username = settings.username;
                 configs = settings.configs;
               };
