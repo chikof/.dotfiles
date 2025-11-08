@@ -1,5 +1,4 @@
 {
-  username,
   lib,
   pkgs,
   ...
@@ -25,7 +24,7 @@
     xwayland.enable = true;
   };
 
-  users.users.${username} = {
+  users.users.chiko = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     packages = with pkgs; [
