@@ -38,7 +38,7 @@ in
   home.packages = with pkgs; [
     neovim
     ripgrep
-    nil
+    nixd
     nixfmt
     nodejs
     gcc
