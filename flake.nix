@@ -53,11 +53,10 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              users."${settings.username}" = (
-                import ./home.nix {
-                  inherit settings inputs outputs;
-                }
-              );
+              users."${settings.username}" = import ./home.nix {
+                username = settings.username;
+                configs = settings.configs;
+              };
               backupFileExtension = "backup";
             };
           }
