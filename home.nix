@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }:
@@ -62,10 +63,8 @@ in
     })
   ];
 
-  xdg.configFile = builtins.listToAttrs (
-    builtins.map (name: {
-      source = create_symlink "${dotfiles}/${name}";
-      recursive = true;
-    }) configs
-  );
+  xdg.configFile = lib.genAttrs configs (name: {
+    source = create_symlink "${dotfiles}/${name}";
+    recursive = true;
+  });
 }
