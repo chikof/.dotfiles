@@ -25,16 +25,7 @@
     }@inputs:
     let
       inherit (self) outputs;
-      settings = {
-        username = "chiko";
-        configs = [
-          "nvim"
-          "zen"
-          "hyprland"
-        ];
-      };
     in
-
     {
       nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
         system = [ "x86_64-linux" ];
@@ -43,7 +34,6 @@
             self
             inputs
             outputs
-            settings
             ;
         };
         modules = [
@@ -53,10 +43,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              users."${settings.username}" = import ./home.nix // {
-                username = settings.username;
-                configs = settings.configs;
-              };
+              users.chiko = import ./home.nix;
               backupFileExtension = "backup";
             };
           }

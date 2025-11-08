@@ -1,11 +1,15 @@
 {
   config,
-  configs,
   pkgs,
-  username,
   ...
 }:
 let
+  configs = [
+    "nvim"
+    "zen"
+    "hyprland"
+  ];
+
   dotfiles = "${config.home.homeDirectory}/.dotfiles/config";
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
 in
@@ -14,8 +18,8 @@ in
     # ./modules/theme.nix
   ];
 
-  home.username = username;
-  home.homeDirectory = "/home/${username}";
+  home.username = "chiko";
+  home.homeDirectory = "/home/chiko";
   home.stateVersion = "25.11";
 
   programs.bash = {
