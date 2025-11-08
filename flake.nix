@@ -10,10 +10,6 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
     inputs.nixcord = {
       url = "github:kaylorben/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,8 +22,9 @@
       nixpkgs,
       home-manager,
       ...
-    }:
+    }@inputs:
     let
+      inherit (self) outputs;
       settings = {
         username = "chiko";
         configs = [
@@ -39,16 +36,20 @@
     in
 
     {
-      nixosConfiguration.desktop = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
         system = [ "x86_64-linux" ];
+        specialArgs = {
+          inherit self inputs outputs;
+        }
+        // settings;
         modules = [
           ./configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager = {
               useGlobalPkgs = true;
-              useUserPkgs = true;
-              user."${settings.username}" = ./home.nix;
+              useUserPackages = true;
+              users."${settings.username}" = ./home.nix;
               backupFileExtension = "backup";
             };
           }

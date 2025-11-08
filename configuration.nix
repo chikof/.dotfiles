@@ -1,5 +1,5 @@
 {
-  settings,
+  username,
   lib,
   pkgs,
   ...
@@ -25,7 +25,7 @@
     xwayland.enable = true;
   };
 
-  users.users.${settings.username} = {
+  users.users.${username} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     packages = with pkgs; [

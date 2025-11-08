@@ -1,7 +1,8 @@
 {
   config,
+  configs,
   pkgs,
-  settings,
+  username,
   ...
 }:
 let
@@ -13,8 +14,8 @@ in
     # ./modules/theme.nix
   ];
 
-  home.username = settings.username;
-  home.homeDirectory = "/home/${settings.username}";
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
   home.stateVersion = "25.11";
 
   programs.bash = {
@@ -61,6 +62,6 @@ in
     builtins.map (name: {
       source = create_symlink "${dotfiles}/${name}";
       recursive = true;
-    }) settings.configs
+    }) configs
   );
 }
